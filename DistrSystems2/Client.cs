@@ -18,14 +18,16 @@ namespace DistrSystems2
         private bool _stop;
         public void Run()
         {
-
+            Console.WriteLine("type host");
+            string host = Console.ReadLine();
+            
             TcpChannel m_TcpChan = new TcpChannel(0);
             ChannelServices.RegisterChannel(m_TcpChan, false);
 
             // Create the object for calling into the server
             ICallsToServer m_RemoteObject = (ICallsToServer)
                 Activator.GetObject(typeof(ICallsToServer),
-                "tcp://127.0.0.1:123/RemoteServer");
+                $"tcp://{host}:123/RemoteServer");
             // Define sink for events
             RemotingConfiguration.RegisterWellKnownServiceType(
                 typeof(NotifySink),
